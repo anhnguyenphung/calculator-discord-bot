@@ -1,8 +1,8 @@
 import os
-
 from dotenv import load_dotenv
 from discord.ext import commands
 import math
+import keep_alive
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -56,17 +56,17 @@ async def square_root(ctx, a):
     await ctx.send(str(response))
 
 
-@bot.command(name='factorial', help='Calculate the factorial of a number')
-async def factorial(ctx, a):
-    response = 1
-    for i in range(1, int(a)+1):
-        response *= i
-    await ctx.send(str(response))
-
-
 @bot.command(name='power', help='Calculate the power with base and exponent')
 async def power(ctx, a, b):
     response = str(math.pow(float(a), float(b)))
     await ctx.send(response)
+
+
+@bot.command(name='avg', help='Calculate the average of two numbers')
+async def avg(ctx, a, b):
+    response = str((float(a) + float(b))/2)
+    await ctx.send(response)
+
+keep_alive.keep_alive()
 
 bot.run(TOKEN)
